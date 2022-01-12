@@ -26,11 +26,11 @@ namespace Bootcamp1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddDbContext<BootcampDBContext>(
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDbContext<BootcampDotNetDBContext>(
              optionsAction: opt =>
              {
-                 opt.UseSqlServer(Configuration.GetConnectionString("BootcampDB"), config =>
+                 opt.UseSqlServer(Configuration.GetConnectionString("BootcampDotNetDB"), config =>
                  {
                  });
 

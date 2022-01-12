@@ -9,8 +9,8 @@ namespace Bootcamp1.Services
     public class UserService : Controller
     {
 
-        private readonly BootcampDBContext _dbContext;
-        public UserService(BootcampDBContext dBContext)
+        private readonly BootcampDotNetDBContext _dbContext;
+        public UserService(BootcampDotNetDBContext dBContext)
         {
             this._dbContext = dBContext;
         }
@@ -21,6 +21,14 @@ namespace Bootcamp1.Services
             var users = _dbContext.User.FromSqlInterpolated($"EXECUTE GetUsers").ToList();
             return users;
 
+        }
+
+        public UserModel GetUser(int id)
+        {
+            var userQuery = _dbContext.User.FromSqlInterpolated($"EXECUTE GetUser {id}");
+
+            var user = userQuery.ToList().FirstOrDefault();
+            return user;
         }
 
     }

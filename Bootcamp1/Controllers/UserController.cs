@@ -34,6 +34,12 @@ namespace Bootcamp1.Controllers
             return View(uvm);
         }
 
+        public UserModel GetUser(int id)
+        {
+            UserModel user = userService.GetUser(id);
+            return user;
+        }
+
        
     }
 }

@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace Bootcamp1
 {
-    public class BootcampDBContext : DbContext
+    public class BootcampDotNetDBContext : DbContext
     {
 
         public virtual DbSet<UserModel> User { get; set; }
 
-        public BootcampDBContext(DbContextOptions<BootcampDBContext> options)
+        public BootcampDotNetDBContext(DbContextOptions<BootcampDotNetDBContext> options)
          : base(options)
         {
         }
