@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Bootcamp1
@@ -29,10 +30,20 @@ namespace Bootcamp1
             services.AddDbContext<BootcampDBContext>(
              optionsAction: opt =>
              {
-                 opt.UseSqlServer(Configuration.GetConnectionString("BootcampDB"), config => {
-                    });
+                 opt.UseSqlServer(Configuration.GetConnectionString("BootcampDB"), config =>
+                 {
+                 });
 
              });
+
+            var serviceTypes = Assembly.GetExecutingAssembly().GetTypes()
+             .Where(type => type.IsClass)
+             .Where(type => type.IsAbstract == false)
+             .Where(type => type.FullName.EndsWith("Service")).ToList();
+            serviceTypes.ForEach(type =>
+            {
+                services.AddScoped(type);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

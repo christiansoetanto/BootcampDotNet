@@ -1,8 +1,17 @@
-﻿
-@{
-}
-
+﻿@model Bootcamp1.ViewModels.UserViewModel
 <div class="text-center">
     <h1 class="display-4">Page User</h1>
+    <div>
+        <ol>
+
+            @{
+                foreach (UserModel user in @Model.Users)
+                {
+                    <li>@user.UserName</li>
+                }
+            }
+        </ol>
+
+    </div>
 
 </div>
