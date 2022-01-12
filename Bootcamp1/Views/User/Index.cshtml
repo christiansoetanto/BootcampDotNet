@@ -2,15 +2,13 @@
 <div class="text-center">
     <h1 class="display-4">Page User</h1>
     <div>
-        <ol>
 
-            @{
-                foreach (UserModel user in @Model.Users)
-                {
-                    <li>@user.UserName</li>
-                }
+        @{
+            foreach (UserModel user in @Model.Users)
+            {
+                <div>@user.UserName</div>
             }
-        </ol>
+        }
 
     </div>
 
