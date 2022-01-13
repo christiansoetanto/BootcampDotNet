@@ -30,14 +30,14 @@
 
     <div>
 
-        <form action="food/create" method="post">
+        <form action="food/create" method="post" id="form_submit">
 
-            <input type="text" name="Food.FoodName" value="" placeholder="Input food name"/>
+            <input type="text"  name="Food.FoodName" value="" placeholder="Input food name"/>
 
             <input type="text" name="Food.Price" value="" />
 
 
-            <input type="submit" value="Submit" />
+            <input type="submit" id="btn_submit_food" value="Submit" />
 
         </form>
     </div>
@@ -45,3 +45,43 @@
 
     
 </div>
+
+
+@section scripts {
+
+    <script>
+        // Vanila Javascript
+
+        async function submitFoodForm(foodItem) {
+            const response = await fetch("Food/CreateFromAjax/",
+                {
+                    method: "POST",
+                    body: foodItem
+                }
+            );
+            const data = await response.json();
+            return data;
+        }
+
+
+        async function getFood() {
+            const response = await fetch("Food/FoodList/")
+            const data = await response.json();
+            return data;
+        }
+
+        document.getElementById("btn_submit_food").addEventListener("click",async function (e) {
+
+            e.preventDefault();
+
+            let myForm = document.getElementById('form_submit');            let formData = new FormData(myForm);
+            await submitFoodForm(formData)
+                .then(ret => {
+                    alert(ret.message)
+                })
+
+        })
+    </script>
+
+}
+

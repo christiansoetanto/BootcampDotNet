@@ -65,5 +65,26 @@ namespace Bootcamp1.Controllers
 
 
         }
+
+
+        public IActionResult CreateFromAjax(FoodViewModel ModelSubmit)
+        {
+
+            // linQ
+            int NewID = FoodList.Max(e => e.FoodID) + 1;
+
+            ModelSubmit.Food.FoodID = NewID;
+
+            FoodList.Add(ModelSubmit.Food);
+
+            //annonymous object
+            JsonResult Ret = Json(new
+            {
+                Status = true,
+                Message = "Berhasil Create From Ajax"
+            });
+
+            return Ret;
+        }
     }
 }
