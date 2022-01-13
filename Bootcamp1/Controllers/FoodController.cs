@@ -86,5 +86,49 @@ namespace Bootcamp1.Controllers
 
             return Ret;
         }
+
+        public IActionResult GetAllFood()
+        {
+
+            FoodViewModel foodVM = new FoodViewModel()
+            {
+                FoodList = FoodList
+            };
+
+            return View("_FoodList", foodVM);
+        }
+
+     
+
+        public IActionResult DeleteFood(int foodId)
+        {
+            //remove item dari FoodList yang memiliki FoodID == foodId
+
+            for(int i = 0; i < FoodList.Count; i++)
+            {
+                if(FoodList[i].FoodID == foodId)
+                {
+                    //cara 1: remove index
+                    FoodList.RemoveAt(i);
+
+                    //cara 2: remove object
+                    //FoodList.Remove(FoodList[i]);
+                    break;
+                }
+            }
+
+
+            //cara 3
+            //LINQ
+            //FoodList.RemoveAll(e => e.FoodID == foodId);
+            JsonResult Ret = Json(new
+            {
+                Status = true,
+                Message = "Berhasil Delete"
+            });
+            return Ret;
+
+        }
+
     }
 }

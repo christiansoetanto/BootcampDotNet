@@ -2,86 +2,96 @@
 
 <div>
 
-    <table class="table">
-
-        <thead>
-            <tr>
-                <th scope="col">Food ID</th>
-                <th scope="col">Food Name</th>
-                <th scope="col">Food Price</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model.FoodList)
-            {
-                <tr>
-                    <td>@item.FoodID</td>
-                    <td>@item.FoodName</td>
-                    <td>@item.Price</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-
-
-
+    <div id="divFoodList">
+    </div>
 
     <div>
 
         <form action="food/create" method="post" id="form_submit">
-
-            <input type="text"  name="Food.FoodName" value="" placeholder="Input food name"/>
-
+            <input type="text" name="Food.FoodName" value="" placeholder="Input food name" />
             <input type="text" name="Food.Price" value="" />
-
-
             <input type="submit" id="btn_submit_food" value="Submit" />
-
         </form>
     </div>
 
 
-    
+
 </div>
 
 
 @section scripts {
 
-    <script>
-        // Vanila Javascript
+<script>
+    // Vanila Javascript
 
-        async function submitFoodForm(foodItem) {
-            const response = await fetch("Food/CreateFromAjax/",
-                {
-                    method: "POST",
-                    body: foodItem
-                }
-            );
-            const data = await response.json();
-            return data;
-        }
+    async function submitFoodForm(foodItem) {
+        //root: https://localhost:44361
+        //url di browser:
+        //https://localhost:44361/Food/
+        //Food/CreateFromAjax/
+        //hasil: https://localhost:44361/Food/Food/CreateFromAjax/
+
+        //url di browser:
+        // https://localhost:44361/Food/CreateFromAjax/
+        //
+        //hasil: https://localhost:44361/Food/CreateFromAjax/
+
+        const response = await fetch("../Food/CreateFromAjax",
+            {
+                method: "POST",
+                body: foodItem
+            }
+        );
+        const data = await response.json();
+        return data;
+    }
 
 
-        async function getFood() {
-            const response = await fetch("Food/FoodList/")
-            const data = await response.json();
-            return data;
-        }
+    //method utk get HTML(partial view) dari controller
+    async function query_getFood(){
+        const response = await fetch("../Food/GetAllFood")
+        const data = await response.text();
+        return data;
+    }
 
-        document.getElementById("btn_submit_food").addEventListener("click",async function (e) {
+    async function query_deleteFood(foodId){
+        const response = await fetch("../Food/DeleteFood?foodId=" + foodId);
+        const data = await response.json();
+        return data;
+    }
 
-            e.preventDefault();
 
-            let myForm = document.getElementById('form_submit');            let formData = new FormData(myForm);
-            await submitFoodForm(formData)
-                .then(ret => {
-                    alert(ret.message)
-                })
+    //main method utk update html kita
+    async function loadFoodList(){
+        //data di sini isinya adalah HTMl dari partial view
+        const data = await query_getFood();
+        document.getElementById("divFoodList").innerHTML = data;
+    }
 
-        })
-    </script>
+    document.getElementById("btn_submit_food").addEventListener("click",async function (e) {
+
+        e.preventDefault();
+
+        let myForm = document.getElementById('form_submit');
+        let formData = new FormData(myForm);
+        const ret = await submitFoodForm(formData);
+
+        loadFoodList();
+    });
+
+
+
+    async function deleteFood(foodId){
+        console.log(foodId);
+        await query_deleteFood(foodId);
+        loadFoodList();
+
+    }
+
+    loadFoodList();
+    //method binding
+    this.deleteFood = deleteFood;
+</script>
 
 }
 
