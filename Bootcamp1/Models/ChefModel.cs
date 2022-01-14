@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Bootcamp1.Models
 {
-    public class FoodModel
+    public class ChefModel
     {
-        public int FoodID { get; set; }
-        public string FoodName { get; set; }
-        public double Price { get; set; }
+        public int ChefID { get; set; }
         public string ChefName { get; set; }
+
+
 
     }
 }

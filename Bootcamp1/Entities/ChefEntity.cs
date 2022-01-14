@@ -1,24 +1,24 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 
 namespace Bootcamp1.Entities
 {
-    public class FoodEntity
+    public class ChefEntity
     {
-        public int FoodID { get; set; }
-        public string FoodName { get; set; }
-        public double Price { get; set; }
         public int ChefID { get; set; }
-        public ChefEntity Chef { get; set; }
+        public string ChefName { get; set; }
+
+        public List<FoodEntity> Foods { get; set; }
 
     }
 
-    public class FoodEntityModelBuilder : IEntityTypeConfiguration<FoodEntity>
+    public class ChefEntityModelBuilder : IEntityTypeConfiguration<ChefEntity>
     {
-        public void Configure(EntityTypeBuilder<FoodEntity> entity)
+        public void Configure(EntityTypeBuilder<ChefEntity> entity)
         {
-            entity.HasKey(e => e.FoodID);
+            entity.HasKey(e => e.ChefID);
         }
     }
 

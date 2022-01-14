@@ -10,7 +10,8 @@ namespace Bootcamp1
         public virtual DbSet<UserModel> User { get; set; }
 
 
-        public virtual DbSet<FoodEntity> FoodEntity { get; set; }
+        public virtual DbSet<FoodEntity> Food { get; set; }
+        public virtual DbSet<ChefEntity> Chef { get; set; }
 
 
         public BootcampDotNetDBContext(DbContextOptions<BootcampDotNetDBContext> options)

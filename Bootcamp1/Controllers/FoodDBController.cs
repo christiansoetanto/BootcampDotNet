@@ -1,4 +1,5 @@
 ﻿using Bootcamp1.Models;
+using Bootcamp1.Services;
 using Bootcamp1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,12 @@ namespace Bootcamp1.Controllers
 {
     public class FoodDBController : Controller
     {
+        //dependency injection
+        private readonly FoodService foodService;
+        public FoodDBController (FoodService foodService)
+        {
+            this.foodService = foodService;
+        }
 
         public static List<FoodModel> FoodList = new List<FoodModel>()
         {
@@ -34,9 +41,10 @@ namespace Bootcamp1.Controllers
         };
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             FoodViewModel FoodVM = new FoodViewModel();
+            var foods = await foodService.GetAllFood();
             FoodVM.FoodList = FoodList;
             return View("Menu", FoodVM);
         }

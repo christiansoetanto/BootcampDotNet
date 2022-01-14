@@ -35,6 +35,8 @@ namespace Bootcamp1
                  opt.UseSqlServer(Configuration.GetConnectionString("BootcampDotNetDB"), config =>
                  {
                  });
+                 opt.UseLoggerFactory(LoggerFactory.Create(cfg => cfg.AddConsole()));
+
 
              });
 
@@ -46,6 +48,7 @@ namespace Bootcamp1
             {
                 services.AddScoped(type);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
