@@ -25,14 +25,38 @@ namespace Bootcamp1.Controllers
         public IActionResult Index()
         {
             List<UserModel> users = userService.GetUsers();
-
+            BookModel book = new BookModel()
+            {
+                BookID = 1,
+                BookName = "asd"
+            };
             UserViewModel uvm = new UserViewModel()
             {
-                Users = users
+                Users = users,
+                Book = book
             };
 
             return View(uvm);
         }
+
+        public IActionResult Welcome()
+        {
+            //Views/{User}/{Welcome}.cshtml
+            UserViewModel uvm = new UserViewModel();
+            uvm.Message = "halo dari model";
+            uvm.User = new UserModel()
+            {
+                UserName = "leo",
+            };
+            uvm.Book = new BookModel()
+            {
+                BookName = "1984"
+            };
+            return View(uvm);
+        }
+
+
+    
 
         public UserModel GetUser(int id)
         {
