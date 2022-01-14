@@ -22,6 +22,7 @@ namespace Bootcamp1.Models
         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Must be 2 digits behind dot")]
         public double Price { get; set; } = 0;
         public string ChefName { get; set; }
+        public int ChefID { get; set; }
 
     }
 }

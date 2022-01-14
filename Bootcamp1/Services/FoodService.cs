@@ -81,7 +81,7 @@ namespace Bootcamp1.Services
             {
                 FoodName = food.FoodName,
                 Price = food.Price,
-                ChefID = 1
+                ChefID = food.ChefID
             };
 
             var res = await dbContext.AddAsync(z);
@@ -105,6 +105,19 @@ namespace Bootcamp1.Services
 
             dbContext.Remove(food);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateFood(FoodModel modelUpdate)
+        {
+            FoodEntity food = await dbContext.Food
+                        .Where(e => e.FoodID == modelUpdate.FoodID)
+                        .FirstOrDefaultAsync();
+
+            food.FoodName = modelUpdate.FoodName;
+            food.Price = modelUpdate.Price;
+
+            await dbContext.SaveChangesAsync();
+
         }
 
     }

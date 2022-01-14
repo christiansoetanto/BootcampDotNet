@@ -13,7 +13,12 @@
 
             <input type="text" id="txt_food_name" name="Food.FoodName" placeholder="Input food name" />
             <input type="text" id="txt_food_price" name="Food.Price" value="" placeholder="Input price"/>
-            @*<input type="text" id="txt_chef_name" name="Food.Chef.ChefName" placeholder="Input chef name" />*@
+            <select name="Food.ChefID">
+                @foreach (var item in Model.ChefList)
+                {
+                    <option value="@item.ChefID">@item.ChefName</option>
+                }
+            </select>
 
             <input type="submit" id="btn_submit_food" value="Submit" />
             <input type="submit" id="btn_update_food" value="Update" />

@@ -10,5 +10,7 @@ namespace Bootcamp1.ViewModels
     {
         public List<FoodModel> FoodList { get; set; }
         public FoodModel Food { get; set; }
+        public List<ChefModel> ChefList { get; set; }
+        public  ChefModel Chef { get; set; }
     }
 }

@@ -11,60 +11,26 @@ namespace Bootcamp1.Controllers
 {
     public class FoodDBController : Controller
     {
-        //dependency injection
+        //dependency injection (taruh aja semua service yg dibutuhkan di sini)
         private readonly FoodService foodService;
-        public FoodDBController (FoodService foodService)
+        private readonly ChefService chefService;
+        public FoodDBController (FoodService foodService, ChefService chefService)
         {
             this.foodService = foodService;
+            this.chefService = chefService;
         }
-
-        public static List<FoodModel> FoodList = new List<FoodModel>()
-        {
-            new FoodModel()
-            {
-                FoodID = 1,
-                FoodName = "Burger",
-                Price = 12.89f
-            },
-            new FoodModel()
-            {
-                FoodID = 2,
-                FoodName = "Pizza",
-                Price = 8.23f
-            },
-            new FoodModel()
-            {
-                FoodID = 3,
-                FoodName = "French Fries",
-                Price = 23.54f
-            }
-        };
-
 
         public async Task<IActionResult> Index()
         {
             FoodDBViewModel FoodDBVM = new FoodDBViewModel();
-            List<FoodModel> foods = await foodService.GetAllFood();
-            FoodDBVM.FoodList = foods;
+
+            List<ChefModel> chefs = await chefService.GetAllChef();
+
+            FoodDBVM.ChefList = chefs;
+
+
             return View("Menu", FoodDBVM);
         }
-
-        public IActionResult Create(FoodViewModel ModelSubmit)
-        {
-
-            // linQ
-            int NewID = FoodList.Max(e => e.FoodID) + 1;
-
-            ModelSubmit.Food.FoodID = NewID;
-
-            FoodList.Add(ModelSubmit.Food);
-
-
-            return RedirectToAction("Index");
-
-
-        }
-
 
         public async Task<IActionResult> CreateFromAjax(FoodViewModel ModelSubmit)
         {
@@ -105,18 +71,9 @@ namespace Bootcamp1.Controllers
 
 
 
-        public IActionResult UpdateFood(FoodViewModel ModelSubmit)
+        public async Task<IActionResult> UpdateFoodAsync(FoodViewModel ModelSubmit)
         {
-            for (int i = 0; i < FoodList.Count; i++)
-            {
-                if (FoodList[i].FoodID == ModelSubmit.Food.FoodID)
-                {
-                    FoodList[i] = ModelSubmit.Food;
-                    break;
-                    //FoodList[i].FoodName = ModelSubmit.Food.FoodName;
-                    //FoodList[i].Price = ModelSubmit.Food.Price;
-                }
-            }
+            await foodService.UpdateFood(ModelSubmit.Food);
 
             JsonResult Ret = Json(new
             {
