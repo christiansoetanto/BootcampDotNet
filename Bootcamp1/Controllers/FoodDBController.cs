@@ -43,10 +43,10 @@ namespace Bootcamp1.Controllers
 
         public async Task<IActionResult> Index()
         {
-            FoodViewModel FoodVM = new FoodViewModel();
+            FoodDBViewModel FoodDBVM = new FoodDBViewModel();
             var foods = await foodService.GetAllFood();
-            FoodVM.FoodList = foods;
-            return View("Menu", FoodVM);
+            FoodDBVM.FoodList = FoodList;
+            return View("Menu", FoodDBVM);
         }
 
         public IActionResult Create(FoodViewModel ModelSubmit)
@@ -86,15 +86,12 @@ namespace Bootcamp1.Controllers
             return Ret;
         }
 
-        public IActionResult GetAllFood()
+        public async Task<IActionResult> GetAllFood()
         {
-
-            FoodViewModel foodVM = new FoodViewModel()
-            {
-                FoodList = FoodList
-            };
-
-            return View("_FoodList", foodVM);
+            FoodDBViewModel FoodDBVM = new FoodDBViewModel();
+            var foods = await foodService.GetAllFood();
+            FoodDBVM.FoodList = FoodList;
+            return View("_FoodList", FoodDBVM);
         }
 
      

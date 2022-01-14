@@ -53,13 +53,13 @@
 
     //method utk get HTML(partial view) dari controller
     async function query_getFood(){
-        const response = await fetch("../Food/GetAllFood")
+        const response = await fetch("../FoodDB/GetAllFood")
         const data = await response.text();
         return data;
     }
 
     async function query_deleteFood(foodId){
-        const response = await fetch("../Food/DeleteFood?foodId=" + foodId, {
+        const response = await fetch("../FoodDB/DeleteFood?foodId=" + foodId, {
             method: "POST"
         });
         const data = await response.json();
@@ -67,7 +67,7 @@
     }
 
     async function query_updateFood(foodItem) {
-        const response = await fetch("../Food/UpdateFood/",
+        const response = await fetch("../FoodDB/UpdateFood/",
             {
                 method: "POST",
                 body: foodItem
