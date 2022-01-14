@@ -66,15 +66,10 @@ namespace Bootcamp1.Controllers
         }
 
 
-        public IActionResult CreateFromAjax(FoodViewModel ModelSubmit)
+        public async Task<IActionResult> CreateFromAjax(FoodViewModel ModelSubmit)
         {
 
-            // linQ
-            int NewID = FoodList.Max(e => e.FoodID) + 1;
-
-            ModelSubmit.Food.FoodID = NewID;
-
-            FoodList.Add(ModelSubmit.Food);
+            FoodModel result = await foodService.CreateFood(ModelSubmit.Food);
 
             //annonymous object
             JsonResult Ret = Json(new
@@ -96,27 +91,9 @@ namespace Bootcamp1.Controllers
 
      
 
-        public IActionResult DeleteFood(int foodId)
+        public async Task<IActionResult> DeleteFoodAsync(int foodId)
         {
-            //remove item dari FoodList yang memiliki FoodID == foodId
-
-            for(int i = 0; i < FoodList.Count; i++)
-            {
-                if(FoodList[i].FoodID == foodId)
-                {
-                    //cara 1: remove index
-                    FoodList.RemoveAt(i);
-
-                    //cara 2: remove object
-                    //FoodList.Remove(FoodList[i]);
-                    break;
-                }
-            }
-
-
-            //cara 3
-            //LINQ
-            //FoodList.RemoveAll(e => e.FoodID == foodId);
+            await foodService.DeleteFood(foodId);
             JsonResult Ret = Json(new
             {
                 Status = true,

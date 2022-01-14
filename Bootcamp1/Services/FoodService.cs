@@ -91,10 +91,20 @@ namespace Bootcamp1.Services
             {
                 FoodID = res.Entity.FoodID,
                 FoodName = res.Entity.FoodName,
-                Price = res.Entity.Price,
-                ChefName = res.Entity.Chef.ChefName
+                Price = res.Entity.Price
             };
 
+        }
+
+
+        public async Task DeleteFood(int foodId)
+        {
+            FoodEntity food = await dbContext.Food
+                        .Where(e => e.FoodID == foodId)
+                        .FirstOrDefaultAsync();
+
+            dbContext.Remove(food);
+            await dbContext.SaveChangesAsync();
         }
 
     }
