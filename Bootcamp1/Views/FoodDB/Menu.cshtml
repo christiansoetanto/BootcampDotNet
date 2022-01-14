@@ -13,7 +13,7 @@
 
             <input type="text" id="txt_food_name" name="Food.FoodName" placeholder="Input food name" />
             <input type="text" id="txt_food_price" name="Food.Price" value="" placeholder="Input price"/>
-            <select name="Food.ChefID">
+            <select id="sl_chef" name="Food.ChefID">
                 @foreach (var item in Model.ChefList)
                 {
                     <option value="@item.ChefID">@item.ChefName</option>
@@ -133,11 +133,11 @@
 
     }
 
-    async function updateFood(foodId, foodName, foodPrice) {
+    async function updateFood(foodId, foodName, foodPrice, chefId) {
         document.getElementById("hd_food_id").value = foodId;
         document.getElementById("txt_food_name").value = foodName;
         document.getElementById("txt_food_price").value = foodPrice;
-
+        document.getElementById("sl_chef").value = chefId;
     }
 
     loadFoodList();

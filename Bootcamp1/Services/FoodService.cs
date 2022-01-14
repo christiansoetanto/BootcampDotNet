@@ -52,7 +52,8 @@ namespace Bootcamp1.Services
                     FoodID = e.FoodID,
                     FoodName = e.FoodName,
                     Price = e.Price,
-                    ChefName = e.Chef.ChefName
+                    ChefName = e.Chef.ChefName,
+                    ChefID = e.Chef.ChefID
                 })
                 .ToListAsync();
 
@@ -115,6 +116,7 @@ namespace Bootcamp1.Services
 
             food.FoodName = modelUpdate.FoodName;
             food.Price = modelUpdate.Price;
+            food.ChefID = modelUpdate.ChefID;
 
             await dbContext.SaveChangesAsync();
 
