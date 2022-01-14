@@ -35,6 +35,27 @@ namespace Bootcamp1.Controllers
         public async Task<IActionResult> CreateFromAjax(FoodViewModel ModelSubmit)
         {
 
+
+            if (ModelState.IsValid == false)
+            {
+                var errorMessage = ViewData.ModelState.Values.FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
+
+
+                JsonResult Ret2 = Json(new
+                {
+                    Status = false,
+                    Message = errorMessage
+                });
+
+                return Ret2;
+
+            }
+
+
+
+
+
+
             FoodModel result = await foodService.CreateFood(ModelSubmit.Food);
 
             //annonymous object

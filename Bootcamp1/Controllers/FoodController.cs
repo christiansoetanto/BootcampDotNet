@@ -46,9 +46,20 @@ namespace Bootcamp1.Controllers
 
         public IActionResult Create(FoodViewModel ModelSubmit)
         {
+            foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+
+                }
+            }
 
             if (!ModelState.IsValid)
             {
+
+                var errorMessage = ViewData.ModelState.Values.FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
+
+
                 FoodViewModel FoodVM = new FoodViewModel();
 
                 FoodVM.FoodList = FoodList;
@@ -71,6 +82,7 @@ namespace Bootcamp1.Controllers
 
         public IActionResult CreateFromAjax(FoodViewModel ModelSubmit)
         {
+
 
             // linQ
             int NewID = FoodList.Max(e => e.FoodID) + 1;

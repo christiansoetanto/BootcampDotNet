@@ -12,7 +12,7 @@
             <input type="hidden" id="hd_food_id" name="Food.FoodID"/>
 
             <input type="text" id="txt_food_name" name="Food.FoodName" placeholder="Input food name" />
-            <input type="text" id="txt_food_price" name="Food.Price" value="" placeholder="Input price"/>
+            <input type="text" id="txt_food_price" name="Food.Price" value="0" placeholder="Input price"/>
             <select id="sl_chef" name="Food.ChefID">
                 @foreach (var item in Model.ChefList)
                 {
@@ -99,6 +99,11 @@
         let myForm = document.getElementById('form_submit');
         let formData = new FormData(myForm);
         const ret = await submitFoodForm(formData);
+        if (ret.status == false) {
+            alert(ret.message)
+        }
+
+
 
         loadFoodList();
     });
@@ -112,12 +117,6 @@
 
         let myForm = document.getElementById('form_submit');
         let formData = new FormData(myForm);
-
-        //const data = {
-        //    "Food.FoodID": document.getElementById("hd_food_id").value,
-        //    "Food.FoodName": document.getElementById("txt_food_name").value,
-        //    "Food.Price": document.getElementById("txt_food_name").value
-        //}
 
 
         const ret = await query_updateFood(formData);
