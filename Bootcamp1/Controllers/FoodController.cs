@@ -53,6 +53,14 @@ namespace Bootcamp1.Controllers
         public IActionResult Create(FoodViewModel ModelSubmit)
         {
 
+            if (!ModelState.IsValid)
+            {
+                FoodViewModel FoodVM = new FoodViewModel();
+
+                FoodVM.FoodList = FoodList;
+                return View("Menu");
+            }
+
             // linQ
             int NewID = FoodList.Max(e => e.FoodID) + 1;
 
