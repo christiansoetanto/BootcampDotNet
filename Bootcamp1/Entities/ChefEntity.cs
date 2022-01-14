@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bootcamp1.Entities
 {
@@ -9,7 +10,6 @@ namespace Bootcamp1.Entities
     {
         public int ChefID { get; set; }
         public string ChefName { get; set; }
-
         public List<FoodEntity> Foods { get; set; }
 
     }
