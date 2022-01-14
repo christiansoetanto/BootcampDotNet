@@ -45,7 +45,7 @@ namespace Bootcamp1.Controllers
         {
             FoodViewModel FoodVM = new FoodViewModel();
             var foods = await foodService.GetAllFood();
-            FoodVM.FoodList = FoodList;
+            FoodVM.FoodList = foods;
             return View("Menu", FoodVM);
         }
 
