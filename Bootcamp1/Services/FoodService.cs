@@ -38,17 +38,14 @@ namespace Bootcamp1.Services
             //Entity => circular
 
             //problem: entity circular
-            FoodEntity z = await dbContext.Food
-                .Where(e => e.Price == 12.3)
-                .Where(e => e.ChefID == 2)
-                .Where(e => e.Chef.ChefName == "budi")
-                .Include(e => e.Chef)
-                .FirstOrDefaultAsync();
+            //FoodEntity z = await dbContext.Food
+            //    .Where(e => e.Price == 12.3)
+            //    .Where(e => e.ChefID == 2)
+            //    .Where(e => e.Chef.ChefName == "budi")
+            //    .Include(e => e.Chef)
+            //    .FirstOrDefaultAsync();
 
-            FoodModel y = await dbContext.Food
-                .Where(e => e.Price == 12.3)
-                .Where(e => e.ChefID == 2)
-                .Where(e => e.Chef.ChefName == "budi")
+            List<FoodModel> y = await dbContext.Food
                 .Include(e => e.Chef)
                 .Select(e => new FoodModel()
                 {
@@ -57,9 +54,7 @@ namespace Bootcamp1.Services
                     Price = e.Price,
                     ChefName = e.Chef.ChefName
                 })
-                .FirstOrDefaultAsync();
-
-
+                .ToListAsync();
 
             //where, list
             //List<FoodEntity> foods2 = await dbContext.Food.Where(e => e.ChefID == 1).ToListAsync();
@@ -76,10 +71,31 @@ namespace Bootcamp1.Services
 
 
 
-            return new List<FoodModel>();
+            return y;
 
         }
 
+        public async Task<FoodModel> CreateFood(FoodModel food)
+        {
+            FoodEntity z = new FoodEntity()
+            {
+                FoodName = food.FoodName,
+                Price = food.Price,
+                ChefID = 1
+            };
+
+            var res = await dbContext.AddAsync(z);
+            await dbContext.SaveChangesAsync();
+
+            return new FoodModel()
+            {
+                FoodID = res.Entity.FoodID,
+                FoodName = res.Entity.FoodName,
+                Price = res.Entity.Price,
+                ChefName = res.Entity.Chef.ChefName
+            };
+
+        }
 
     }
 }

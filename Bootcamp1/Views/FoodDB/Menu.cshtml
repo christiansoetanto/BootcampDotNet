@@ -12,7 +12,9 @@
             <input type="hidden" id="hd_food_id" name="Food.FoodID"/>
 
             <input type="text" id="txt_food_name" name="Food.FoodName" placeholder="Input food name" />
-            <input type="text" id="txt_food_price" name="Food.Price" value="" />
+            <input type="text" id="txt_food_price" name="Food.Price" value="" placeholder="Input price"/>
+            @*<input type="text" id="txt_chef_name" name="Food.Chef.ChefName" placeholder="Input chef name" />*@
+
             <input type="submit" id="btn_submit_food" value="Submit" />
             <input type="submit" id="btn_update_food" value="Update" />
         </form>
@@ -40,7 +42,7 @@
         //
         //hasil: https://localhost:44361/Food/CreateFromAjax/
 
-        const response = await fetch("../Food/CreateFromAjax",
+        const response = await fetch("../FoodDB/CreateFromAjax",
             {
                 method: "POST",
                 body: foodItem
