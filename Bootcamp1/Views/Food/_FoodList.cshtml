@@ -24,6 +24,7 @@
                     <td>@item.Price</td>
                     <td>
                         <button class="btn btn-warning" type="button" onclick="deleteFood(@item.FoodID)">Delete</button>
+                        <button class="btn btn-danger" type="button" onclick="updateFood(@item.FoodID, '@item.FoodName', @item.Price)">Update</button>
                     </td>
                 </tr>
             }

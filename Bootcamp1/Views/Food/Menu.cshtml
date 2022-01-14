@@ -8,9 +8,13 @@
     <div>
 
         <form action="food/create" method="post" id="form_submit">
-            <input type="text" name="Food.FoodName" value="" placeholder="Input food name" />
-            <input type="text" name="Food.Price" value="" />
+
+            <input type="hidden" id="hd_food_id" name="Food.FoodID"/>
+
+            <input type="text" id="txt_food_name" name="Food.FoodName" placeholder="Input food name" />
+            <input type="text" id="txt_food_price" name="Food.Price" value="" />
             <input type="submit" id="btn_submit_food" value="Submit" />
+            <input type="submit" id="btn_update_food" value="Update" />
         </form>
     </div>
 
@@ -55,10 +59,23 @@
     }
 
     async function query_deleteFood(foodId){
-        const response = await fetch("../Food/DeleteFood?foodId=" + foodId);
+        const response = await fetch("../Food/DeleteFood?foodId=" + 1, {
+            method: "POST"
+        });
         const data = await response.json();
         return data;
     }
+
+    async function query_updateFood(foodItem) {
+        const response = await fetch("../Food/UpdateFood/",
+            {
+                method: "POST",
+                body: foodItem
+            });
+        const data = await response.json();
+        return data;
+    }
+
 
 
     //main method utk update html kita
@@ -79,12 +96,40 @@
         loadFoodList();
     });
 
+    document.getElementById("btn_update_food").addEventListener("click", async function (e) {
+        e.preventDefault();
+
+
+
+
+
+        let myForm = document.getElementById('form_submit');
+        let formData = new FormData(myForm);
+
+        //const data = {
+        //    "Food.FoodID": document.getElementById("hd_food_id").value,
+        //    "Food.FoodName": document.getElementById("txt_food_name").value,
+        //    "Food.Price": document.getElementById("txt_food_name").value
+        //}
+
+
+        const ret = await query_updateFood(formData);
+
+        loadFoodList();
+    })
 
 
     async function deleteFood(foodId){
         console.log(foodId);
         await query_deleteFood(foodId);
         loadFoodList();
+
+    }
+
+    async function updateFood(foodId, foodName, foodPrice) {
+        document.getElementById("hd_food_id").value = foodId;
+        document.getElementById("txt_food_name").value = foodName;
+        document.getElementById("txt_food_price").value = foodPrice;
 
     }
 

@@ -130,5 +130,30 @@ namespace Bootcamp1.Controllers
 
         }
 
+
+
+        public IActionResult UpdateFood(FoodViewModel ModelSubmit)
+        {
+            for (int i = 0; i < FoodList.Count; i++)
+            {
+                if (FoodList[i].FoodID == ModelSubmit.Food.FoodID)
+                {
+                    FoodList[i] = ModelSubmit.Food;
+                    break;
+                    //FoodList[i].FoodName = ModelSubmit.Food.FoodName;
+                    //FoodList[i].Price = ModelSubmit.Food.Price;
+                }
+            }
+
+            JsonResult Ret = Json(new
+            {
+                Status = true,
+                Message = "Berhasil Update"
+            });
+            return Ret;
+
+        }
+
+
     }
 }
