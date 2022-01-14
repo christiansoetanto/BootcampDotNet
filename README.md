@@ -22,7 +22,7 @@ Note :
 -	Tampilan atau desgin aplikasi bebas (tidak masuk penilaian)
 -	Dari deskripsi yang di atas, kamu perlu pikirkan struktur table-table yang diperlukan
 -	Ini link repository: https://github.com/christiansoetanto/BootcampDotNet (pilih branch day-two)  
-- 	Deadline-nya sampai dengan tanggal 21 Januari 2022 jam 23:59
+- 	Deadline-nya sampai dengan tanggal 21 Januari 2022 jam 23:59  
 **!!!PENTING!!!**  
 Yang perlu dikumpulkan:
 1.	folder project
