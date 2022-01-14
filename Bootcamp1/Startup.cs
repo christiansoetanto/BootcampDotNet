@@ -27,6 +27,8 @@ namespace Bootcamp1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+
             services.AddDbContext<BootcampDotNetDBContext>(
              optionsAction: opt =>
              {
@@ -70,7 +72,7 @@ namespace Bootcamp1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=fooddb}/{action=Index}/{id?}");
             });
         }
     }

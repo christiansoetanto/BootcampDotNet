@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bootcamp1.Controllers
 {
-    public class FoodController : Controller
+    public class FoodDBController : Controller
     {
 
         public static List<FoodModel> FoodList = new List<FoodModel>()
@@ -36,13 +36,10 @@ namespace Bootcamp1.Controllers
 
         public IActionResult Index()
         {
-
             FoodViewModel FoodVM = new FoodViewModel();
             FoodVM.FoodList = FoodList;
             return View("Menu", FoodVM);
         }
-
-
 
         public IActionResult Create(FoodViewModel ModelSubmit)
         {

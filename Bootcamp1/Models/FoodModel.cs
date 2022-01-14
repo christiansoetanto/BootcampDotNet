@@ -10,5 +10,10 @@ namespace Bootcamp1.Models
         public int FoodID { get; set; }
         public string FoodName { get; set; }
         public float Price { get; set; }
+
+
+        public string ChefName { get; set; }
+
+
     }
 }
