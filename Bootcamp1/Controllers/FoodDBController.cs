@@ -2,6 +2,7 @@
 using Bootcamp1.Services;
 using Bootcamp1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,13 +33,20 @@ namespace Bootcamp1.Controllers
             return View("Menu", FoodDBVM);
         }
 
-        public async Task<IActionResult> CreateFromAjax(FoodViewModel ModelSubmit)
+        public async Task<IActionResult> CreateFromAjax( FoodViewModel ModelSubmit)
         {
+
+            // Jadi... pas  kita mau create, kan ID nya null tuh
+            // jdinya kita mesti remove Food.FoodID dari validasi, kalau gk ntar dia bakal dicegat, gk lolos validasi. Coba aja komen 1 baris code di bawah ini, nnti eror.
+            ModelState.Remove("Food.FoodID");
 
 
             if (ModelState.IsValid == false)
             {
-                var errorMessage = ViewData.ModelState.Values.FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
+                // Ini aku tambahin syntax WHERE ya, kalau gk ntar bisa eror
+                var errorMessage = ViewData.ModelState.Values
+                    .Where(e => e.ValidationState == ModelValidationState.Invalid)
+                    .FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
 
 
                 JsonResult Ret2 = Json(new
