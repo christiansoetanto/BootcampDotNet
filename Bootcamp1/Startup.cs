@@ -27,12 +27,16 @@ namespace Bootcamp1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+
             services.AddDbContext<BootcampDotNetDBContext>(
              optionsAction: opt =>
              {
                  opt.UseSqlServer(Configuration.GetConnectionString("BootcampDotNetDB"), config =>
                  {
                  });
+                 opt.UseLoggerFactory(LoggerFactory.Create(cfg => cfg.AddConsole()));
+
 
              });
 
@@ -44,6 +48,7 @@ namespace Bootcamp1
             {
                 services.AddScoped(type);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +75,7 @@ namespace Bootcamp1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=fooddb}/{action=Index}/{id?}");
             });
         }
     }

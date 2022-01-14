@@ -1,4 +1,5 @@
 ﻿using Bootcamp1.Models;
+using Bootcamp1.Services;
 using Bootcamp1.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace Bootcamp1.Controllers
 {
-    public class FoodController : Controller
+    public class FoodDBController : Controller
     {
+        //dependency injection
+        private readonly FoodService foodService;
+        public FoodDBController (FoodService foodService)
+        {
+            this.foodService = foodService;
+        }
 
         public static List<FoodModel> FoodList = new List<FoodModel>()
         {
@@ -34,26 +41,16 @@ namespace Bootcamp1.Controllers
         };
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
-            FoodViewModel FoodVM = new FoodViewModel();
-            FoodVM.FoodList = FoodList;
-            return View("Menu", FoodVM);
+            FoodDBViewModel FoodDBVM = new FoodDBViewModel();
+            var foods = await foodService.GetAllFood();
+            FoodDBVM.FoodList = FoodList;
+            return View("Menu", FoodDBVM);
         }
-
-
 
         public IActionResult Create(FoodViewModel ModelSubmit)
         {
-
-            if (!ModelState.IsValid)
-            {
-                FoodViewModel FoodVM = new FoodViewModel();
-
-                FoodVM.FoodList = FoodList;
-                return View("Menu");
-            }
 
             // linQ
             int NewID = FoodList.Max(e => e.FoodID) + 1;
@@ -89,15 +86,12 @@ namespace Bootcamp1.Controllers
             return Ret;
         }
 
-        public IActionResult GetAllFood()
+        public async Task<IActionResult> GetAllFood()
         {
-
-            FoodViewModel foodVM = new FoodViewModel()
-            {
-                FoodList = FoodList
-            };
-
-            return View("_FoodList", foodVM);
+            FoodDBViewModel FoodDBVM = new FoodDBViewModel();
+            var foods = await foodService.GetAllFood();
+            FoodDBVM.FoodList = FoodList;
+            return View("_FoodList", FoodDBVM);
         }
 
      

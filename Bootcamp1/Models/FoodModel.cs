@@ -20,6 +20,8 @@ namespace Bootcamp1.Models
         public string FoodName { get; set; }
         [CustomPriceValidation]
         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Must be 2 digits behind dot")]
-        public float Price { get; set; } = 0;
+        public double Price { get; set; } = 0;
+        public string ChefName { get; set; }
+
     }
 }
