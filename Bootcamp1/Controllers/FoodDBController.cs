@@ -43,9 +43,7 @@ namespace Bootcamp1.Controllers
 
             if (ModelState.IsValid == false)
             {
-                // Ini aku tambahin syntax WHERE ya, kalau gk ntar bisa eror
                 var errorMessage = ViewData.ModelState.Values
-                    .Where(e => e.ValidationState == ModelValidationState.Invalid)
                     .FirstOrDefault().Errors.FirstOrDefault().ErrorMessage;
 
 
